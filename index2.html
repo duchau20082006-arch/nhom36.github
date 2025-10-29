@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nhóm Sáng Tạo</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      color: #333;
+    }
+
+    header {
+      background: #343a40;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    nav a {
+      color: #ffc107;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: url('assets/images/group-banner.jpg') center/cover no-repeat;
+      color: white;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    .members {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      margin: 0.5rem 0;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .card a:hover {
+      background: #0056b3;
+    }
+
+    footer {
+      background: #343a40;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nhóm 36</h1>
+    <p>Khám phá portfolio của từng thành viên</p>
+    <nav>
+      <ul>
+        <li><a href="dangngocthanh.html"><i class="fas fa-user"></i> Đặng Ngọc Thành</a></li>
+        <li><a href="mthuan.html"><i class="fas fa-user"></i> Nguyễn Phạm Minh Thuận</a></li>
+        <li><a href="ngohao.html"><i class="fas fa-user"></i> Ngô Hoàng Hảo</a></li>
+        <li><a href="hậu.html"><i class="fas fa-user"></i> Nguyễn Đức Hậu</a></li>
+        <li><a href="hậu.html"><i class="fas fa-user"></i> lê ngọc minh</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Chúng tôi là ai?</h2>
+      <p>Nhóm 36 gồm những thành viên đoàn kết và sáng tạo.</p>
+    </div>
+  </section>
+
+  <section class="members">
+    <div class="card">
+      <img src="c:\Users\admin\Downloads\24050097-giuaki\ảnh4.jpg" alt="Thành viên 1" />
+      <h3>Đặng Ngọc Thành</h3>
+      <p>Front-end Developer</p>
+      <a href="c:\Thư mục mới (2)\24050097-giuaki\24050097.html">Xem Portfolio</a>
+    </div>
+    <div class="card">
+      <img src="c:\bài giữa kỳ thuận\z7140012559963_ca7da4d32149c67a9fb25411538fa5eb.jpg" alt="Thành viên 2" />
+      <h3>Nguyễn Phạm Minh Thuận</h3>
+      <p>UI/UX Designer</p>
+      <a href="c:\Thư mục mới (2)\bài giữa kỳ thuận\bài1.html">Xem Portfolio</a>
+    </div>
+    <div class="card">
+      <img src="c:\Users\admin\Downloads\giuaki\avarta.jpg" alt="Thành Viên 3" />
+      <h3>Ngô Hoàng Hảo</h3>
+      <p>Flex</p>
+      <a href="c:\Users\admin\Downloads\giuaki\ngohao.html">Xem Portfolio</a>
+    </div>
+    <div class="card">
+      <img src="c:\bài giữa kỳ hậu\z7166057028921_caf50005b9d655c555ca03f08b05dbf7.jpg" alt="Thành Viên 4" />
+      <h3>Nguyễn Đức Hậu</h3>
+      <p>Grid layout</p>
+      <a href="c:\Thư mục mới (2)\bài giữa kỳ hậu\baigiuaky1.html">Xem Portfolio</a>
+    </div>
+    <div class="card">
+      <img src="c:\Users\admin\Downloads\anh1.jpg" alt="Thành Viên 5" />
+      <h3>Lê Ngọc Minh</h3>
+      <p>Grid layout</p>
+      <a href="c:\Thư mục mới (2)\24050111-lengocminh\lengocminh.html">Xem Portfolio</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Nhóm Sáng Tạo. All rights reserved.</p>
+  </footer>
+</body>
+</html>

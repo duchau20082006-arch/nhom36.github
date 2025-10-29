@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lê Ngọc Minh - Cowboy Portfolio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#3b1c00 0%,#1a0a00 50%,#000000 100%);
+  color:#fff4dd;text-align:center;overflow-x:hidden;cursor:crosshair;
+}
+
+/* ==== HEADINGS ==== */
+h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:2.8em;margin:40px 10px 20px;
+  color:#ffd480;
+  text-shadow:0 0 10px #ff9900,0 0 25px #ff5500;
+  animation:glow 2.5s infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 10px #ff9900,0 0 20px #ff6600;}
+  to{text-shadow:0 0 30px #ffcc33,0 0 45px #ff5500;}
+}
+.typing{border-right:2px solid #ffcc66;white-space:nowrap;overflow:hidden;display:inline-block;
+  animation:typing 3s steps(30,end),blink .6s step-end infinite;}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+
+.avatar{
+  width:200px;height:200px;border-radius:50%;
+  border:4px solid #ffcc66;box-shadow:0 0 30px #ff8800;
+  margin-top:15px;object-fit:cover;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-8px)}}
+
+/* ==== SECTION ==== */
+.section{
+  margin:50px auto;max-width:900px;padding:25px;
+  border-radius:12px;
+  background:rgba(255,200,100,0.05);
+  border:1.5px solid rgba(255,180,80,0.3);
+  box-shadow:0 0 25px rgba(255,120,0,.6);
+  transition:.3s;
+}
+.section:hover{box-shadow:0 0 40px rgba(255,200,100,.8);}
+
+/* ==== HOBBIES & GALLERY ==== */
+.hobbies,.gallery{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:15px;
+}
+.hobby,.gallery img{
+  width:170px;border-radius:10px;
+  border:2px solid #ffb347;
+  box-shadow:0 0 20px #ff7e00;
+  transition:transform .25s,box-shadow .25s;
+}
+.hobby:hover,.gallery img:hover{transform:scale(1.1);box-shadow:0 0 35px #ffcc33;}
+
+/* ==== SKILLS ==== */
+.skills{text-align:left;max-width:600px;margin:auto}
+.skill{margin:15px 0}
+.skill-name{color:#ffd480;text-shadow:0 0 8px #ff6600;margin-bottom:4px}
+.bar{background:rgba(255,255,255,.1);border-radius:8px;overflow:hidden}
+.bar-fill{
+  height:18px;line-height:18px;padding-right:8px;text-align:right;
+  border-radius:8px;
+  background:linear-gradient(90deg,#ff7e00,#ffcc33);
+  color:#000;font-weight:bold
+}
+
+/* ==== FOOTER ==== */
+footer{margin-top:50px;padding:20px;background:rgba(255,180,80,0.05);border-top:1px solid #ff9900}
+
+/* ==== GUNSHOT ==== */
+.bullet{
+  position:fixed;width:10px;height:10px;
+  background:radial-gradient(circle,#ffff00 0%,#ff3300 70%,transparent 100%);
+  border-radius:50%;pointer-events:none;
+  transform:translate(-50%,-50%);
+  animation:shot .4s ease-out forwards;
+}
+@keyframes shot{to{transform:scale(4);opacity:0}}
+.hole{
+  position:fixed;width:16px;height:16px;
+  background:radial-gradient(circle,#111 20%,transparent 80%);
+  border-radius:50%;pointer-events:none;
+  transform:translate(-50%,-50%);
+  animation:smoke 1.2s ease-out forwards;
+}
+@keyframes smoke{to{opacity:0;transform:scale(1.8)}}
+
+/* ==== DUST ==== */
+.dust{
+  position:fixed;width:4px;height:4px;border-radius:50%;
+  background:#ffcc66;opacity:.4;
+  animation:dust 12s linear infinite;
+}
+@keyframes dust{to{transform:translate(100vw,-100vh);opacity:0}}
+
+/* ==== MUSIC BUTTON ==== */
+#music-toggle{
+  position:fixed;top:15px;right:15px;
+  background:rgba(255,150,50,.3);border:none;
+  color:#fff;padding:8px 15px;border-radius:10px;cursor:pointer;
+  font-weight:bold;box-shadow:0 0 10px #ff9900;
+  transition:.3s;z-index:10;
+}
+#music-toggle:hover{background:#ff9900;box-shadow:0 0 25px #ffcc33}
+</style>
+</head>
+<body>
+
+<button id="music-toggle">🔊 Bật/Tắt nhạc</button>
+<audio id="bgm" loop autoplay preload="auto"
+src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1e6fdb3a67.mp3?filename=western-background-ambient-music-10883.mp3"></audio>
+<audio id="gunshot" preload="auto"
+src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b8e65e97a.mp3?filename=gun-shot-1-81842.mp3"></audio>
+
+<h1 class="typing">🤠 Lê Ngọc Minh - Cowboy Developer 🤠</h1>
+<img src="anh1.jpg" class="avatar" alt="Avatar">
+
+<div class="section">
+  <h2>📜 Thông tin cá nhân</h2>
+  <p><b>MSSV:</b> 24050111</p>
+  <p><b>Họ tên:</b> Lê Ngọc Minh</p>
+  <p><b>Quê quán:</b> Quảng Nam</p>
+  <p><b>Ngày sinh:</b> 12/03/2006</p>
+  <p><b>Email:</b> <a href="mailto:24050111@student.bdu.edu.vn">24050111@student.bdu.edu.vn</a></p>
+</div>
+
+<div class="section">
+  <h2>🎵 Sở thích</h2>
+  <div class="hobbies">
+    <div><img src="anh2.jpg" class="hobby"><p>Nghe nhạc</p></div>
+    <div><img src="anh3.jpg" class="hobby"><p>Chơi game</p></div>
+    <div><img src="anh4.jpg" class="hobby"><p>Du lịch</p></div>
+    <div><img src="anh5.jpg" class="hobby"><p>Lập trình</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>💻 Trình độ & Kỹ năng</h2>
+  <div class="skills">
+    <div class="skill"><div class="skill-name">HTML / CSS</div><div class="bar"><div class="bar-fill" style="width:90%">90%</div></div></div>
+    <div class="skill"><div class="skill-name">JavaScript</div><div class="bar"><div class="bar-fill" style="width:80%">80%</div></div></div>
+    <div class="skill"><div class="skill-name">Python</div><div class="bar"><div class="bar-fill" style="width:70%">70%</div></div></div>
+    <div class="skill"><div class="skill-name">Giao tiếp & Làm việc nhóm</div><div class="bar"><div class="bar-fill" style="width:95%">95%</div></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🚀 Kế hoạch tương lai</h2>
+  <p>Phấn đấu trở thành lập trình viên chuyên nghiệp – mạnh mẽ, sáng tạo và tự tin như cao bồi công nghệ miền viễn tây.</p>
+  <img src="anh6.jpg" class="hobby" alt="Kế hoạch tương lai">
+</div>
+
+<div class="section">
+  <h2>📸 Bộ sưu tập ảnh</h2>
+  <div class="gallery">
+    <img src="anh7.jpg"><img src="anh8.jpg"><img src="anh9.jpg"><img src="anh10.jpg">
+  </div>
+</div>
+
+<footer>
+  <p>📧 <a href="mailto:24050111@student.bdu.edu.vn">24050111@student.bdu.edu.vn</a></p>
+  <p>🔗 <a href="https://www.facebook.com/share/1EsK5RCYr2/" target="_blank">Facebook - Lê Ngọc Minh</a></p>
+  <p>🤠 Cảm ơn đã ghé thăm miền viễn tây của mình 🤠</p>
+</footer>
+
+<script>
+// ==== DUST ====
+for(let i=0;i<25;i++){
+  const d=document.createElement('div');
+  d.className='dust';
+  d.style.left=Math.random()*100+'vw';
+  d.style.top=Math.random()*100+'vh';
+  d.style.animationDuration=8+Math.random()*8+'s';
+  document.body.appendChild(d);
+}
+
+// ==== GUNSHOT ====
+const gun=document.getElementById('gunshot');
+document.addEventListener('click',e=>{
+  const b=document.createElement('div');
+  b.className='bullet';
+  b.style.left=e.clientX+'px';
+  b.style.top=e.clientY+'px';
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),400);
+
+  const h=document.createElement('div');
+  h.className='hole';
+  h.style.left=e.clientX+'px';
+  h.style.top=e.clientY+'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1200);
+
+  gun.currentTime=0;gun.play();
+});
+
+// ==== MUSIC TOGGLE ====
+const bgm=document.getElementById('bgm');
+const toggle=document.getElementById('music-toggle');
+toggle.onclick=()=>{
+  if(bgm.paused){bgm.play();toggle.textContent='🔊 Tắt nhạc';}
+  else{bgm.pause();toggle.textContent='🔈 Bật nhạc';}
+};
+</script>
+</body>
+</html>
