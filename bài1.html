@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#eef2ff" /> <title>Nguyễn Phạm Minh Thuận – Portfolio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+  <style>
+    /* =============================================================
+       CSS VARIABLES – Light Mode Cố định
+       ============================================================= */
+    :root {
+      --bg: #f7f8ff;              /* nền sáng chủ đạo */
+      --bg-2: #eef2ff;            /* nền sáng thứ cấp */
+      --text: #0b0f1a;            /* chữ chính tối */
+      --muted: #3a4370;           /* chữ phụ */
+      --accent: #3b5bff;          /* xanh lam */
+      --accent-2: #7e34e9;        /* tím */
+      --accent-3: #0aa2c0;        /* xanh cyan */
+      --card: #ffffff;            /* nền card trắng */
+      --card-2: #f2f4ff;          /* nền card hover */
+      --shadow: 0 10px 30px rgba(0,0,0,.15); /* bóng nhẹ hơn cho sáng */
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --border: 1px solid rgba(0,0,0,0.08);
+      --glow: drop-shadow(0 0 8px rgba(59,91,255,.25)); /* Glow nhẹ hơn */
+      --grid-gap: 24px;
+    }
+
+    /* =============================================================
+       GLOBAL
+       ============================================================= */
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+    }
+
+    .container-narrow {
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: 16px;
+    }
+
+    .section {
+      padding-block: 80px;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 2.4vw, 36px);
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      margin-bottom: 18px;
+      filter: var(--glow);
+      text-shadow: 0 4px 16px rgba(59, 91, 255, 0.1);
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+      max-width: 700px;
+    }
+
+    .neon-hr {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), var(--accent-3), transparent);
+      opacity: .6;
+      border: 0;
+      margin: 28px 0 36px;
+      filter: drop-shadow(0 0 3px rgba(59,91,255,.4));
+    }
+
+    /* =============================================================
+       HEADER / HERO (BỐ CỤC MỚI: DẠNG TRANG CÁ NHÂN FACEBOOK PROFILE STYLE)
+       ============================================================= */
+    header.hero {
+      position: relative;
+      /* Chiều cao tối thiểu: không cần 100vh nữa, chỉ cần đủ chứa nội dung */
+      padding: 120px 16px 40px; 
+      overflow: clip;
+      display: flex; /* Dùng flex để dễ dàng căn chỉnh wrapper */
+      align-items: center;
+      justify-content: center;
+      /* Hiệu ứng gradient nền sáng nhẹ hơn */
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(59,91,255,.08), transparent 60%),
+        radial-gradient(1000px 500px at 90% 20%, rgba(126,52,233,.08), transparent 60%),
+        radial-gradient(1000px 500px at 40% 100%, rgba(10,162,192,.08), transparent 60%);
+    }
+
+    canvas#fx-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      filter: drop-shadow(0 0 4px rgba(59,91,255,.3));
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      width: 100%; /* Đảm bảo chiếm đủ chiều rộng */
+      background: var(--card); /* Nền trắng như trang Facebook */
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 30px; 
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: transform .12s ease-out; /* Giữ transition cho parallax */
+    }
+
+    /* Khối chính chứa Avatar và Info */
+    .hero-main-info {
+        display: flex;
+        gap: 20px;
+        align-items: center; /* Căn info theo chiều dọc với avatar */
+        border-bottom: var(--border);
+        padding-bottom: 25px;
+        margin-bottom: 0;
+    }
+    
+    .avatar-wrap {
+      width: 130px; /* Nhỏ hơn một chút so với bố cục cũ */
+      height: 130px;
+      flex-shrink: 0; /* Quan trọng: không bị co lại */
+      border-radius: 50%;
+      padding: 4px;
+      background: conic-gradient(from 120deg, var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+      box-shadow: 0 8px 32px rgba(59,91,255,.2);
+      margin-top: -60px; /* Kéo Avatar lên trên 1 chút để nổi bật */
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 4px solid var(--card); /* Border dày màu trắng nổi bật */
+      filter: saturate(1.1) contrast(1.05);
+      transition: transform .35s ease;
+      background: #eee;
+    }
+
+    .avatar:hover { transform: scale(1.04) rotate(2deg); }
+
+    .hero-text-content {
+        align-self: flex-start;
+    }
+
+    .hero-text-content h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900;
+      letter-spacing: .4px;
+      margin: 0 0 4px;
+    }
+
+    .typewriter {
+      display: inline-block;
+      border-right: 3px solid var(--accent-3);
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3.8s steps(40, end) 1, blink .9s step-end infinite;
+      font-size: clamp(15px, 2.2vw, 18px);
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { 50% { border-color: transparent } }
+
+    /* Khối CTA & Social (Thanh công cụ) */
+    .hero-actions {
+        display: flex;
+        justify-content: space-between; /* Đẩy CTA sang trái, Social sang phải */
+        align-items: center;
+        flex-wrap: wrap;
+        padding-top: 5px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-neon {
+      --pad-x: 18px;
+      --pad-y: 10px;
+      padding: var(--pad-y) var(--pad-x);
+      border-radius: 8px; /* Dùng border-radius vuông hơn */
+      border: var(--border);
+      background: var(--bg-2); /* Nền xám nhạt */
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .3px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    }
+
+    .btn-neon:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(59,91,255,.15);
+      background: var(--card);
+    }
+    
+    /* Nút chính (Tải CV) */
+    .btn-primary-action {
+        background: var(--accent);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(59,91,255,.25);
+    }
+
+    .btn-primary-action:hover {
+        background: var(--accent-2);
+        box-shadow: 0 6px 16px rgba(126,52,233,.3);
+    }
+
+    .hero-social {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-social a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: var(--bg-2); /* Nền xám nhạt */
+      color: var(--muted);
+      font-size: 18px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .hero-social a:hover {
+      transform: scale(1.1);
+      background-color: var(--accent);
+      color: white;
+      box-shadow: 0 0 10px rgba(59,91,255, 0.4);
+    }
+
+    /* Media Query cho Mobile */
+    @media (max-width: 768px) {
+        .hero-main-info {
+            flex-direction: column; /* Xếp Avatar và Info theo cột */
+            align-items: flex-start;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        .hero-text-content {
+            margin-top: 15px;
+        }
+        .hero-actions {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .hero-social {
+            margin-top: 5px;
+        }
+    }
+    
+    /* ... (Giữ nguyên các style khác) ... */
+
+    /* =============================================================
+       CARD / WRAPPER
+       ============================================================= */
+    .cardx {
+      background: var(--card);
+      border: var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 20px 20px 18px;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cardx:hover { background: var(--card-2); transform: translateY(-6px); }
+
+    .cardx .shine {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: -120% -120% auto auto;
+      width: 240%;
+      height: 240%;
+      background: conic-gradient(from 0deg, transparent 65%, rgba(0,0,0,.04) 75%, transparent 82%); /* Màu sáng */
+      animation: spin 8s linear infinite;
+      opacity: .3;
+      filter: blur(10px);
+    }
+
+    @keyframes spin { to { transform: rotate(1turn) } }
+
+    /* =============================================================
+       THÔNG TIN CÁ NHÂN
+       ============================================================= */
+    .info-list { list-style: none; padding: 0; margin: 0; }
+    .info-list li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding: 10px 8px; border-bottom: 1px dashed rgba(0,0,0,.08); }
+    .info-list i { color: var(--accent-3); filter: var(--glow); }
+
+    /* =============================================================
+       SỞ THÍCH – icon grid
+       ============================================================= */
+    .hobby-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--grid-gap); }
+    .hobby { text-align: center; padding: 22px 18px; border-radius: var(--radius-md); background: linear-gradient(180deg, rgba(59,91,255,.05), rgba(126,52,233,.05)); border: var(--border); box-shadow: var(--shadow); transition: transform .22s ease, box-shadow .22s ease; }
+    .hobby:hover { transform: translateY(-6px); box-shadow: 0 18px 32px rgba(0,0,0,.2); }
+    .hobby i { font-size: 28px; margin-bottom: 8px; color: var(--accent); }
+
+    /* =============================================================
+       KỸ NĂNG – progress + badges (Đã chỉnh đều bằng CSS Grid)
+       ============================================================= */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+      gap: var(--grid-gap);
+      align-items: stretch; 
+    }
+
+    .skill {
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: var(--border);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .skill:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 18px 32px rgba(59,91,255,.2);
+    }
+    
+    .skill .label { font-weight: 700; margin-bottom: 6px; }
+    .pbar {
+      height: 12px;
+      background: var(--bg-2);
+      border-radius: 1000px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.06);
+      position: relative;
+    }
+
+    .pbar > .bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      background-size: 200% 100%;
+      animation: progressMove 2s linear infinite;
+      box-shadow: inset 0 0 8px rgba(0,0,0,.1);
+      transition: width 1.6s cubic-bezier(.25,.8,.25,1);
+    }
+
+    @keyframes progressMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    .skill .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .badgex { padding: 6px 10px; border-radius: 1000px; font-size: 12px; border: var(--border); background: var(--bg-2); color: var(--muted); }
+
+    /* =============================================================
+       GALLERY – CUỘN NGANG (HORIZONTAL SCROLL)
+       ============================================================= */
+    .gallery-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 20px;
+        cursor: grab;
+        margin-block: 20px;
+    }
+
+    .gallery-wrapper::-webkit-scrollbar { height: 8px; }
+    .gallery-wrapper::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 4px; }
+    .gallery-wrapper::-webkit-scrollbar-track { background: transparent; }
+
+    .gallery-grid {
+        display: flex;
+        gap: 18px; 
+        padding-inline: 4px; 
+        
+    }
+    
+    .gimg {
+        flex-shrink: 0; 
+        width: 300px; 
+        height: 300px; 
+        position: relative;
+        border-radius: var(--radius-md); 
+        overflow: hidden; 
+        border: var(--border); 
+        box-shadow: var(--shadow); 
+        cursor: zoom-in;
+        transition: transform .3s ease;
+    }
+    
+    .gimg:hover {
+        transform: scale(1.02); 
+    }
+
+    .gimg img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+        transition: transform .4s ease; 
+        display: block; 
+    }
+    .gimg:hover img { transform: scale(1.06); }
+    .gimg::after { 
+        content: "Xem"; 
+        position: absolute; 
+        inset: auto 10px 10px auto; 
+        background: rgba(255,255,255,.6); 
+        color: var(--text); 
+        padding: 6px 10px; 
+        border-radius: 8px; 
+        font-size: 12px; 
+        opacity: 0; 
+        transform: translateY(6px); 
+        transition: .2s ease; 
+    }
+    .gimg:hover::after { opacity: 1; transform: translateY(0); }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.82); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 88vw; max-height: 86vh; border-radius: 12px; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+    .lightbox .close, .lightbox .prev, .lightbox .next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,.2); backdrop-filter: blur(10px); color: #fff; border: 1px solid rgba(255,255,255,.2); width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; }
+    .lightbox .close { top: 24px; right: 24px; transform: none; }
+    .lightbox .prev { left: 24px; }
+    .lightbox .next { right: 24px; }
+
+    /* =============================================================
+       PROJECTS – cards + modal chi tiết
+       ============================================================= */
+    .projects-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        gap: var(--grid-gap); 
+        align-items: stretch; 
+    }
+    .project { 
+        border-radius: var(--radius-lg); 
+        overflow: hidden; 
+        border: var(--border); 
+        background: var(--card); 
+        box-shadow: var(--shadow); 
+        position: relative; 
+        transition: transform .25s ease, box-shadow .25s ease;
+        display: flex;
+        flex-direction: column; 
+    }
+    .project:hover { transform: translateY(-5px); box-shadow: 0 18px 32px rgba(0,0,0,.2); }
+    .project .thumb { height: 180px; background-size: cover; background-position: center; filter: saturate(1.05) contrast(1.05); transition: transform .35s ease; }
+    .project:hover .thumb { transform: scale(1.05); }
+    .project .content { padding: 18px; flex-grow: 1; display: flex; flex-direction: column; }
+    .project .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .tag { font-size: 12px; padding: 6px 10px; border-radius: 1000px; background: rgba(59,91,255,.1); border: 1px solid rgba(59,91,255,.15); color: var(--text); }
+    .project .open-btn { margin-top: auto; 
+      align-self: flex-start; 
+      margin-top: 14px;
+      border: var(--border); 
+      padding: 6px 10px; 
+      background: var(--bg-2); 
+      border-radius: 10px; 
+      cursor: pointer;
+    }
+
+    .modalx { position: fixed; inset: 0; display: none; place-items: center; z-index: 1100; }
+    .modalx.active { display: grid; }
+    .modalx .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(8px); }
+    .modalx .dialog { position: relative; background: var(--card); border: var(--border); border-radius: var(--radius-lg); width: min(920px, 92vw); max-height: 88vh; overflow: auto; box-shadow: var(--shadow); padding: 18px; animation: pop .18s ease; }
+    @keyframes pop { from { transform: translateY(12px) scale(.98); opacity: .6 } }
+
+    /* =============================================================
+       CV DOWNLOAD + FOOTER
+       ============================================================= */
+    .cta-wrap { display: grid; place-items: center; gap: 12px; }
+    .download-btn { padding: 12px 24px; border-radius: 1000px; border: var(--border); background: linear-gradient(135deg, rgba(59,91,255,.2), rgba(126,52,233,.2)); font-weight: 800; letter-spacing: .3px; }
+
+    footer { padding: 46px 16px; text-align: center; color: var(--muted); border-top: 1px solid rgba(0,0,0,.08); background: linear-gradient(180deg, transparent, rgba(0,0,0,.02)); }
+    footer a { color: var(--text); opacity: .9; margin: 0 10px; }
+
+    /* =============================================================
+       UTILS
+       ============================================================= */
+    .muted { color: var(--muted); }
+    .kbd { font-size: 12px; padding: 2px 6px; border-radius: 6px; background: rgba(0,0,0,.08); border: 1px solid rgba(0,0,0,.14); color: var(--text); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    .spacer-24 { height: 24px; }
+    
+  </style>
+</head>
+<body>
+  <header class="hero" id="home">
+    <canvas id="fx-canvas"></canvas>
+
+    <div class="hero-inner" data-aos="zoom-in">
+        <div class="hero-main-info">
+           <div class="avatar-wrap" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.25">
+    <img class="avatar" src="c:\bài giữa kỳ thuận\z7140012559963_ca7da4d32149c67a9fb25411538fa5eb.jpg" alt="Ảnh đại diện" loading="lazy" />
+</div>
+
+            <div class="hero-text-content">
+                <h1>Nguyễn Phạm Minh Thuận</h1>
+                <div class="typewriter">Sinh viên • Front-end Developer • Tây Ninh</div>
+            </div>
+        </div>
+
+        <div class="hero-actions">
+            <div class="hero-cta">
+                <a href="#about" class="btn-neon btn-primary-action"><i class="fa-solid fa-file-arrow-down"></i> Tải CV</a>
+                <a href="#about" class="btn-neon"><i class="fa-regular fa-user"></i> Giới thiệu</a>
+                <a href="#skills" class="btn-neon"><i class="fa-solid fa-code"></i> Kỹ năng</a>
+                <a href="#projects" class="btn-neon"><i class="fa-regular fa-folder-open"></i> Dự án</a>
+            </div>
+
+            <div class="hero-social">
+                <a href="https://www.facebook.com/share/1BbXspJqb4/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://www.tiktok.com/@minh_thuan218?_t=ZS-90uk3FDQiMZ&_r=1" target="_blank" aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="mailto:24050107@student.bdu.edu.vn" aria-label="Gmail">
+                    <i class="fa-regular fa-envelope"></i>
+                </a>
+                </a>
+            </div>
+        </div>
+    </div>
+  </header>
+  
+  <section id="about" class="section">
+    <div class="container-narrow">
+      <h2 class="section-title" data-aos="fade-up"><i class="fa-regular fa-user"></i> Thông tin cá nhân</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="60"></p>
+      <hr class="neon-hr" />
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="cardx" data-aos="fade-right">
+            <span class="shine"></span>
+            <ul class="info-list">
+              <li><i class="fa-regular fa-id-card"></i> <span><strong>Họ & tên:</strong> Nguyễn Phạm Minh Thuận</span></li>
+              <li><i class="fa-regular fa-calendar"></i> <span><strong>Ngày sinh:</strong> 21/10/2006</span></li>
+              <li><i class="fa-regular fa-envelope"></i> <span><strong>Email:</strong> 24050107@student.bdu.edu.vn</span></li>
+              <li><i class="fa-solid fa-phone"></i> <span><strong>Điện thoại:</strong> 0359 174 849</span></li>
+              <li><i class="fa-solid fa-location-dot"></i> <span><strong>Quê quán:</strong> Tây Ninh</span></li>
+              <li><i class="fa-solid fa-graduation-cap"></i> <span><strong>Ngành học:</strong> Công nghệ thông tin</span></li>
+            </ul>
+          </div>
+        </div>
+       <div class="col-md-6">
+  <div class="cardx" data-aos="fade-left">
+    <span class="shine"></span>
+    <h5 class="mb-2"><i class="fa-solid fa-heart-pulse"></i> Sở thích</h5>
+    <div class="hobby-grid">
+      <div class="hobby" data-hobby="cycling" data-tilt data-tilt-max="10">
+        <i class="fa-solid fa-person-biking"></i><div>Đạp xe</div>
+      </div>
+      <div class="hobby" data-hobby="game" data-tilt data-tilt-max="10">
+        <i class="fa-solid fa-gamepad"></i><div>Chơi game</div>
+      </div>
+      <div class="hobby" data-hobby="travel" data-tilt data-tilt-max="10">
+        <i class="fa-solid fa-plane"></i><div>Du lịch</div>
+      </div>
+      <div class="hobby" data-hobby="gundam" data-tilt data-tilt-max="10">
+        <i class="fa-solid fa-robot"></i><div>Gundam</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lightbox" id="hobbyLightbox" aria-hidden="true" role="dialog">
+    <button class="close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+    <div class="lightbox-content d-flex align-items-center justify-content-center flex-column gap-3">
+      <img id="hobbyImg" src="" alt="Hobby preview" />
+      <div class="controls d-flex justify-content-between w-100 px-4">
+        <button class="prev btn btn-outline-light"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="next btn btn-outline-light"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </section>
+ 
+  <section id="skills" class="section">
+    <div class="container-narrow">
+      <h2 class="section-title" data-aos="fade-up"><i class="fa-solid fa-code"></i> Kỹ năng chuyên môn</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="60"></p>
+      <hr class="neon-hr" />
+
+      <div class="skills-grid">
+        <div class="skill" data-tilt data-tilt-max="8" data-aos="fade-up">
+          <div class="label">HTML / CSS</div>
+          <div class="pbar" aria-label="HTML/CSS level">
+            <div class="bar" data-level="90%"></div>
+          </div>
+          <div class="badges"><span class="badgex">Flexbox</span><span class="badgex">Grid</span><span class="badgex">Responsive</span><span class="badgex">Animation</span></div>
+        </div>
+
+        <div class="skill" data-tilt data-tilt-max="8" data-aos="fade-up" data-aos-delay="60">
+          <div class="label">JavaScript</div>
+          <div class="pbar" aria-label="JavaScript level">
+            <div class="bar" data-level="80%"></div>
+          </div>
+          <div class="badges"><span class="badgex">ES6+</span><span class="badgex">Fetch</span><span class="badgex">Modules</span><span class="badgex">Async</span></div>
+        </div>
+
+        <div class="skill" data-tilt data-tilt-max="8" data-aos="fade-up" data-aos-delay="120">
+          <div class="label">ReactJS</div>
+          <div class="pbar" aria-label="React level">
+            <div class="bar" data-level="70%"></div>
+          </div>
+          <div class="badges"><span class="badgex">Hooks</span><span class="badgex">SPA</span><span class="badgex">Components</span></div>
+        </div>
+
+        <div class="skill" data-tilt data-tilt-max="8" data-aos="fade-up" data-aos-delay="180">
+          <div class="label">Bootstrap</div>
+          <div class="pbar" aria-label="Bootstrap level">
+            <div class="bar" data-level="85%"></div>
+          </div>
+          <div class="badges"><span class="badgex">Grid</span><span class="badgex">Utilities</span><span class="badgex">Components</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="container-narrow">
+      <h2 class="section-title" data-aos="fade-up"><i class="fa-regular fa-folder-open"></i> Dự án tiêu biểu</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="60"></p>
+      <hr class="neon-hr" />
+
+      <div class="projects-grid">
+        <article class="project" data-aos="fade-up">
+          <div class="thumb" style="background-image:url('https://picsum.photos/640/360?random=11');"></div>
+          <div class="content">
+            <h5>🌐 Website Nhà hàng</h5>
+            <p class="muted">Giao diện hiện đại, responsive, tối ưu Core Web Vitals.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Bootstrap</span></div>
+            <button class="open-btn" data-project="resto"><i class="fa-regular fa-eye"></i> Chi tiết</button>
+          </div>
+        </article>
+
+        <article class="project" data-aos="fade-up" data-aos-delay="60">
+          <div class="thumb" style="background-image:url('https://picsum.photos/640/360?random=12');"></div>
+          <div class="content">
+            <h5>📝 Todo App</h5>
+            <p class="muted">Quản lý công việc với React, lưu cục bộ, drag & drop nhẹ.</p>
+            <div class="tags"><span class="tag">React</span><span class="tag">LocalStorage</span></div>
+            <button class="open-btn" data-project="todo"><i class="fa-regular fa-eye"></i> Chi tiết</button>
+          </div>
+        </article>
+
+        <article class="project" data-aos="fade-up" data-aos-delay="120">
+          <div class="thumb" style="background-image:url('https://picsum.photos/640/360?random=13');"></div>
+          <div class="content">
+            <h5>💼 Portfolio</h5>
+            <p class="muted">Trang cá nhân tối, neon, có hiệu ứng chuột, lightbox ảnh, modal dự án, skill progress on scroll, tilt 3D.</p>
+            <div class="tags"><span class="tag">AOS</span><span class="tag">Canvas</span><span class="tag">Vanilla JS</span></div>
+            <button class="open-btn" data-project="folio"><i class="fa-regular fa-eye"></i> Chi tiết</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="modalx" id="projectModal" aria-hidden="true" role="dialog">
+    <div class="overlay" data-close="modal"></div>
+    <div class="dialog">
+      <button class="btn btn-sm btn-outline-dark float-end" data-close="modal"><i class="fa-solid fa-xmark"></i> Đóng</button>
+      <div class="spacer-24"></div>
+      <h4 id="pm-title">Tiêu đề</h4>
+      <p class="muted" id="pm-desc">Mô tả</p>
+      <img id="pm-img" alt="Ảnh dự án" class="img-fluid rounded-3 border" src="" />
+      <div class="spacer-24"></div>
+      <div id="pm-tech" class="d-flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+
+  <section id="gallery" class="section">
+    <div class="container-narrow">
+      <h2 class="section-title" data-aos="fade-up"><i class="fa-regular fa-images"></i> Hình ảnh của tôi</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="60"></p>
+      <hr class="neon-hr" />
+
+      <div class="gallery-wrapper" data-aos="fade-up">
+          <div class="gallery-grid">
+            <a class="gimg" href="#" data-idx="0"><img src="z7140012565317_1bca263250573aaa8be160a08dc8a8b9.jpg" alt="Ảnh 1" /></a>
+            <a class="gimg" href="#" data-idx="1"><img src="z7140012574764_76bc6b4e8982d5afd4ef24fc9a64e076.jpg" alt="Ảnh 2" /></a>
+            <a class="gimg" href="#" data-idx="2"><img src="z7140027042760_8cad3c1fcce69d52e53c0b078997129a.jpg" alt="Ảnh 3" /></a>
+            <a class="gimg" href="#" data-idx="3"><img src="z7140027076292_fac65294f8949ebc9bc4f2877667f4c6.jpg" alt="Ảnh 4" /></a>
+            <a class="gimg" href="#" data-idx="4"><img src="z7140027084768_8486515a63f7cd40db8665d646253a56.jpg" alt="Ảnh 5" /></a>
+            <a class="gimg" href="#" data-idx="5"><img src="z7112617256970_176b521e3241a4d4fa8345bac6abd7c4.jpg" alt="Ảnh 6" /></a>
+            <a class="gimg" href="#" data-idx="6"><img src="z6606174466151_392b0e9279f4b256d84fcca4aeeb7ea1.jpg" alt="Ảnh 7" /></a>
+            <a class="gimg" href="#" data-idx="7"><img src="z7140012559963_ca7da4d32149c67a9fb25411538fa5eb.jpg" alt="Ảnh 8" /></a>
+          </div>
+      </div>
+      </div>
+  </section>
+
+  <div class="lightbox" id="gLightbox" aria-hidden="true" role="dialog">
+    <button class="close" aria-label="Đóng" title="Đóng (Esc)"><i class="fa-solid fa-xmark"></i></button>
+    <button class="prev" aria-label="Ảnh trước" title="Trước (←)"><i class="fa-solid fa-chevron-left"></i></button>
+    <img src="" alt="Preview" />
+    <button class="next" aria-label="Ảnh kế" title="Kế (→)"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <footer>
+    <div class="container-narrow">
+      &copy; 2025 Nguyễn Phạm Minh Thuận • <span title="JavaScript">❤</span>
+      <div class="mt-2">
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    /* =============================================================
+       UTILS – Kiểm tra Mobile
+       ============================================================= */
+    const isMobile = () => window.innerWidth < 768;
+
+    /* =============================================================
+       AOS INIT
+       ============================================================= */
+    AOS.init({ duration: 900, once: true, offset: 60 });
+
+    /* =============================================================
+       SKILL BARS – animate on intersection
+       ============================================================= */
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.querySelectorAll('.bar').forEach(b => {
+            const lvl = b.getAttribute('data-level') || '0%';
+            setTimeout(() => { b.style.width = lvl; }, 150);
+          });
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .35 });
+
+    document.querySelectorAll('.skill').forEach(el => skillObserver.observe(el));
+
+    /* =============================================================
+       PROJECT MODAL – nội dung nạp động theo data-project
+       ============================================================= */
+    const PROJECTS = {
+      resto: {
+        title: 'Website Nhà hàng',
+        desc: 'Thiết kế landing page nhà hàng với hiệu ứng mượt, menu sticky, đặt bàn nhanh. Tối ưu responsive và tốc độ tải.',
+        img: 'https://picsum.photos/960/540?random=111',
+        tech: ['HTML','CSS','Bootstrap','AOS']
+      },
+      todo: {
+        title: 'Todo App',
+        desc: 'Quản lý công việc cá nhân, kéo thả thứ tự, lọc trạng thái, lưu LocalStorage. Code gọn, dễ mở rộng.',
+        img: 'https://picsum.photos/960/540?random=112',
+        tech: ['React','Hooks','LocalStorage']
+      },
+      folio: {
+        title: 'Portfolio',
+        desc: 'Trang cá nhân tối, neon, có hiệu ứng chuột, lightbox ảnh, modal dự án, skill progress on scroll, tilt 3D.',
+        img: 'https://picsum.photos/960/540?random=113',
+        tech: ['Vanilla JS','Canvas','AOS']
+      }
+    };
+
+    const modal = document.getElementById('projectModal');
+    const pmTitle = document.getElementById('pm-title');
+    const pmDesc = document.getElementById('pm-desc');
+    const pmImg = document.getElementById('pm-img');
+    const pmTech = document.getElementById('pm-tech');
+
+    function openProjectModal(key){
+      const data = PROJECTS[key];
+      if(!data) return;
+      pmTitle.textContent = data.title;
+      pmDesc.textContent = data.desc;
+      pmImg.src = data.img;
+      pmTech.innerHTML = '';
+      data.tech.forEach(t => {
+        const b = document.createElement('span');
+        b.className = 'badgex';
+        b.textContent = t;
+        pmTech.appendChild(b);
+      });
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal(){
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.open-btn').forEach(btn => {
+      btn.addEventListener('click', () => openProjectModal(btn.dataset.project));
+    });
+
+    modal.addEventListener('click', (e) => {
+      if(e.target.dataset.close === 'modal' || e.target.closest('[data-close="modal"]')) closeProjectModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal.classList.contains('active')) closeProjectModal();
+    });
+
+    /* =============================================================
+       GALLERY LIGHTBOX – có điều hướng bằng phím ← → Esc
+       ============================================================= */
+    const gLightbox = document.getElementById('gLightbox');
+    const gImgs = Array.from(document.querySelectorAll('.gallery-grid .gimg img'));
+    const lbImg = gLightbox.querySelector('img');
+    const prevBtn = gLightbox.querySelector('.prev');
+    const nextBtn = gLightbox.querySelector('.next');
+    const closeBtn = gLightbox.querySelector('.close');
+
+    let curIdx = 0;
+
+    function showLightbox(idx){
+      curIdx = (idx + gImgs.length) % gImgs.length;
+      lbImg.src = gImgs[curIdx].src;
+      gLightbox.classList.add('active');
+      gLightbox.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideLightbox(){
+      gLightbox.classList.remove('active');
+      gLightbox.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    function navLightbox(step){ showLightbox(curIdx + step); }
+
+    document.querySelectorAll('.gimg').forEach(a => {
+      a.addEventListener('click', (e) => { e.preventDefault(); const idx = +a.dataset.idx; showLightbox(idx); });
+    });
+
+    prevBtn.addEventListener('click', () => navLightbox(-1));
+    nextBtn.addEventListener('click', () => navLightbox(1));
+    closeBtn.addEventListener('click', hideLightbox);
+    gLightbox.addEventListener('click', (e) => { if(e.target === gLightbox) hideLightbox(); });
+
+    window.addEventListener('keydown', (e) => {
+      if(!gLightbox.classList.contains('active')) return;
+      if(e.key === 'ArrowLeft') navLightbox(-1);
+      else if(e.key === 'ArrowRight') navLightbox(1);
+      else if(e.key === 'Escape') hideLightbox();
+    });
+
+    /* =============================================================
+       KEYBOARD SHORTCUTS – Ctrl+K mở Quick Search (demo)
+       ============================================================= */
+    window.addEventListener('keydown', (e) => {
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
+        e.preventDefault();
+        alert('Quick Search demo: gõ để tìm (tính năng demo).');
+      }
+    });
+
+    /* =============================================================
+       VANILLA TILT INIT – cho avatar, hobby, skill cards
+       ============================================================= */
+    if(window.VanillaTilt){
+      VanillaTilt.init(document.querySelectorAll('[data-tilt]'));
+    }
+
+    /* =============================================================
+       CURSOR PARTICLES & CANVAS OPTIMIZATION
+       (Đã sửa lỗi không vẽ hạt và tối ưu hiệu suất cho mobile)
+       ============================================================= */
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = canvas.offsetWidth;
+    let H = canvas.height = canvas.offsetHeight;
+
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries){
+        const cr = entry.contentRect;
+        W = canvas.width = Math.floor(cr.width * devicePixelRatio);
+        H = canvas.height = Math.floor(cr.height * devicePixelRatio);
+        canvas.style.width = cr.width + 'px';
+        canvas.style.height = cr.height + 'px';
+      }
+    });
+    resizeObserver.observe(canvas);
+
+    const MAX_PARTICLES = 140;
+    const PARTICLE_TTL = 1200;
+    const PARTICLE_SIZE = [1.2, 3.2];
+    const PARTICLE_SPEED = [0.04, 0.18];
+    const COLORS = ['#3b5bff', '#7e34e9', '#0aa2c0'];
+
+    const particles = [];
+    let mouseX = -9999, mouseY = -9999;
+    let lastTime = 0;
+
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    function addParticle(x, y){
+      const now = performance.now();
+      const size = rand(PARTICLE_SIZE[0], PARTICLE_SIZE[1]);
+      const speed = rand(PARTICLE_SPEED[0], PARTICLE_SPEED[1]);
+      const angle = rand(0, Math.PI * 2);
+      const vx = Math.cos(angle) * speed * (Math.random() < .5 ? -1 : 1);
+      const vy = Math.sin(angle) * speed;
+      particles.push({
+        x: x * devicePixelRatio,
+        y: y * devicePixelRatio,
+        vx, vy,
+        size: size * devicePixelRatio,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        born: now,
+        ttl: PARTICLE_TTL
+      });
+      if(particles.length > MAX_PARTICLES) particles.shift();
+    }
+
+    // Bổ sung: Listener để theo dõi chuột cho hiệu ứng gradient nền
+    window.addEventListener('mousemove', (e) => {
+        if (isMobile()) return; // Vô hiệu hóa trên mobile
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    window.addEventListener('click', (e) => {
+      // Chỉ thêm hạt khi không phải mobile để giảm lag
+      if (isMobile()) return;
+      for(let i=0;i<14;i++) addParticle(e.clientX, e.clientY);
+    });
+
+    function draw(t){
+      const dt = t - lastTime; lastTime = t;
+      ctx.clearRect(0,0,W,H);
+      
+      const W_px = W / devicePixelRatio;
+      const H_px = H / devicePixelRatio;
+
+      // 1. Mouse Follow Gradient (Chỉ chạy trên Desktop)
+      if(!isMobile() && mouseX > -999){
+        const gx = mouseX / W_px;
+        const gy = mouseY / H_px;
+        const grad = ctx.createRadialGradient(gx*W, gy*H, 60, gx*W, gy*H, 400);
+        grad.addColorStop(0, 'rgba(59,91,255,0.15)');
+        grad.addColorStop(1, 'rgba(59,91,255,0.00)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,W,H);
+      }
+      ctx.globalAlpha = 1;
+
+      // 2. Particle Update and Draw (Đã bổ sung logic cập nhật)
+      for(let i = particles.length - 1; i >= 0; i--){
+        const p = particles[i];
+        const age = t - p.born;
+
+        if(age > p.ttl){
+          particles.splice(i, 1); // Xóa hạt hết hạn
+          continue;
+        }
+
+        // Cập nhật vị trí dùng dt cho mượt
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+
+        // Vẽ hạt (sử dụng alpha để tạo hiệu ứng mờ dần)
+        const alpha = 1 - (age / p.ttl);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = alpha;
+        
+        ctx.beginPath();
+        // Kích thước hạt cũng nhỏ dần theo alpha
+        ctx.arc(p.x, p.y, p.size / 2 * alpha, 0, Math.PI * 2); 
+        ctx.fill();
+      }
+
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+
+    /* =============================================================
+       PARALLAX NHẸ TRONG HERO – dựa theo vị trí chuột
+       (Đã thêm logic vô hiệu hóa trên mobile)
+       ============================================================= */
+    const hero = document.querySelector('header.hero');
+    const heroInner = document.querySelector('.hero-inner');
+
+    function handleHeroMouseMove(e) {
+      if (isMobile()) return; // Vô hiệu hóa trên mobile
+      const r = hero.getBoundingClientRect();
+      const cx = (e.clientX - r.left) / r.width - 0.5;
+      const cy = (e.clientY - r.top) / r.height - 0.5;
+      // Dùng translate3d để đảm bảo mượt mà (GPU acceleration)
+      heroInner.style.transform = `translate3d(${cx * 5}px, ${cy * 5}px, 0)`;
+    }
+
+    hero.addEventListener('mousemove', handleHeroMouseMove);
+    
+    hero.addEventListener('mouseleave', () => { 
+        if (isMobile()) return;
+        heroInner.style.transform = ''; 
+    });
+    
+    // Đảm bảo không còn transform khi chuyển sang mobile
+    window.addEventListener('resize', () => {
+        if (isMobile()) {
+            heroInner.style.transform = '';
+        }
+    });
+
+    /* =============================================================
+       OBSERVER để lazy-animate các .cardx (thêm class on-visible)
+       ============================================================= */
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){ e.target.classList.add('on-visible'); cardObserver.unobserve(e.target); }
+      });
+    }, { threshold: .15 });
+    document.querySelectorAll('.cardx').forEach(c => cardObserver.observe(c));
+    
+    /* =============================================================
+       SỞ THÍCH – Lightbox xem ảnh riêng từng mục
+       ============================================================= */
+    const HOBBY_IMGS = {
+      cycling: [
+        "z7140027074506_9c7227f5e19cfcd05350fdbea9a5665d.jpg",
+        "z7140027090901_46db366deecf7ef048d87d0b01d2ab3b.jpg",
+        "z7140027045572_9b40f4ec5bb9f91465cbeb9c69f27cb4.jpg"
+      ],
+      game: [
+        "z7140027028383_8ec64bbb626b9bbd481d90a1cad53127.jpg",
+        "z7140027003202_4ce699dc6f77ff268b9e28799a1bb856.jpg",
+        "z7140027031458_56df351d6e09445d43c0cede297ee101.jpg"
+      ],
+      travel: [
+        "z7140027060386_7235fcccddc205ae5089216b8b663028.jpg",
+        "z7140027072401_cfb8bb226e6aaaaacf8ce664e2435ed0.jpg",
+        "z7140027058083_b843183e43e6b1dc15581b2ac5a52617.jpg"
+      ],
+      gundam: [
+        "z7140012571760_109a4a0eb344a61f74046db62ad30d77.jpg",
+        "z7140027010024_2ce4222991e4b4bf02b5a3ed3f19fe48.jpg",
+        "z7140027031019_a8ab8bca5587fcf06c8c1dbd9f27d5eb.jpg"
+      ]
+    };
+
+    const hobbyBox = document.getElementById("hobbyLightbox");
+    const hobbyImg = document.getElementById("hobbyImg");
+    const hobbyPrev = hobbyBox.querySelector(".prev");
+    const hobbyNext = hobbyBox.querySelector(".next");
+    const hobbyClose = hobbyBox.querySelector(".close");
+
+    let hobbyList = [];
+    let hobbyIdx = 0;
+
+    function openHobbyLightbox(type) {
+      hobbyList = HOBBY_IMGS[type] || [];
+      hobbyIdx = 0;
+      showHobbyImg();
+      hobbyBox.classList.add("active");
+      hobbyBox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeHobbyLightbox() {
+      hobbyBox.classList.remove("active");
+      hobbyBox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function showHobbyImg() {
+      if (hobbyList.length === 0) return;
+      hobbyImg.src = hobbyList[hobbyIdx];
+    }
+
+    function nextHobbyImg(step) {
+      hobbyIdx = (hobbyIdx + step + hobbyList.length) % hobbyList.length;
+      showHobbyImg();
+    }
+
+    document.querySelectorAll(".hobby").forEach(h => {
+      h.addEventListener("click", () => openHobbyLightbox(h.dataset.hobby));
+    });
+    hobbyClose.addEventListener("click", closeHobbyLightbox);
+    hobbyPrev.addEventListener("click", () => nextHobbyImg(-1));
+    hobbyNext.addEventListener("click", () => nextHobbyImg(1));
+    window.addEventListener("keydown", e => {
+      if (!hobbyBox.classList.contains("active")) return;
+      if (e.key === "Escape") closeHobbyLightbox();
+      if (e.key === "ArrowLeft") nextHobbyImg(-1);
+      if (e.key === "ArrowRight") nextHobbyImg(1);
+    });
+  </script>
+</body>
+</html>
